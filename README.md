@@ -5,15 +5,14 @@
 [<img alt="docs.rs" src="https://img.shields.io/badge/docs.rs-enum2repr-66c2a5?style=for-the-badge&labelColor=555555&logo=docs.rs" height="20">](https://docs.rs/enum2repr)
 
 EnumRepr is a rust derive macro that creates conversion methods to map between a value and an enum. 
-
-All types supported by `#[repr(T)]` are supported by enum2repr.
+Numeric types supported by `#[repr(T)]` are supported by enum2repr.
 
 ## Usage
 
 Add this to your `Cargo.toml`:
 
 ```toml
-enum2repr = "0.1.10"
+enum2repr = "0.1.11"
 ```
 
 Example:
