@@ -18,15 +18,14 @@ pub fn derive_enum2repr(input: TokenStream) -> TokenStream {
     let mut repr = None;
     for attr in input.attrs {
         if attr.path.is_ident("repr") {
-            match attr.parse_args::<Ident>() {
-                Ok(name) => match name.to_string().as_str() {
+            if let Ok(name) = attr.parse_args::<Ident>() {
+                match name.to_string().as_str() {
                     "u8" | "u16" | "u32" | "u64" | "u128" | "usize" | "i8" | "i16" | "i32"
                     | "i64" | "i128" | "isize" => {
                         repr = Some(quote!(#name));
                     }
                     _ => {}
-                },
-                _ => (),
+                }
             }
         }
     }
@@ -35,8 +34,8 @@ pub fn derive_enum2repr(input: TokenStream) -> TokenStream {
         return derive_error!("The #[repr(T)] attribute is required when using EnumRepr.");
     }
 
-    let ref name = input.ident;
-    let ref data = input.data;
+    let name = &input.ident;
+    let data = &input.data;
 
     let mut try_from_enum_match_arms;
     let mut try_from_repr_match_arms;
@@ -47,7 +46,7 @@ pub fn derive_enum2repr(input: TokenStream) -> TokenStream {
             try_from_enum_match_arms = TokenStream2::new();
 
             for variant in data_enum.variants.iter() {
-                let ref variant_name = variant.ident;
+                let variant_name = &variant.ident;
 
                 if !matches!(&variant.fields, Fields::Unit) {
                     return derive_error!(
