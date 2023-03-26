@@ -1,6 +1,6 @@
 [package]
 name = "enum2repr"
-version = "0.1.9"
+version = "0.1.10"
 authors = ["Matthew Berger <matthewjordanberger@gmail.com>"]
 description = """
 EnumRepr is a rust derive macro that creates a try_from<T> implementation for an enum with only unit variants. 

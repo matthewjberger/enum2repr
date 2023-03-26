@@ -13,7 +13,7 @@ All types supported by `#[repr(T)]` are supported by enum2repr.
 Add this to your `Cargo.toml`:
 
 ```toml
-enum2repr = "0.1.0"
+enum2repr = "0.1.10"
 ```
 
 Example:
