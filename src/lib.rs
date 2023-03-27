@@ -37,13 +37,11 @@ pub fn derive_enum2repr(input: TokenStream) -> TokenStream {
     let name = &input.ident;
     let data = &input.data;
 
-    let mut from_enum_match_arms;
     let mut try_from_repr_match_arms;
 
     match data {
         Data::Enum(data_enum) => {
             try_from_repr_match_arms = TokenStream2::new();
-            from_enum_match_arms = TokenStream2::new();
 
             for variant in data_enum.variants.iter() {
                 let variant_name = &variant.ident;
@@ -57,11 +55,6 @@ pub fn derive_enum2repr(input: TokenStream) -> TokenStream {
                 try_from_repr_match_arms.extend(quote_spanned! {
                     variant.span() =>
                         x if x == #name::#variant_name as #repr => Ok(#name::#variant_name),
-                });
-
-                from_enum_match_arms.extend(quote_spanned! {
-                    variant.span() =>
-                        #name::#variant_name => #name::#variant_name as #repr,
                 });
             }
         }
@@ -82,9 +75,7 @@ pub fn derive_enum2repr(input: TokenStream) -> TokenStream {
 
         impl From<#name> for #repr {
             fn from(value: #name) -> #repr {
-                match value {
-                    #from_enum_match_arms
-                }
+                value as #repr
             }
         }
     };
