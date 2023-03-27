@@ -37,13 +37,13 @@ pub fn derive_enum2repr(input: TokenStream) -> TokenStream {
     let name = &input.ident;
     let data = &input.data;
 
-    let mut try_from_enum_match_arms;
+    let mut from_enum_match_arms;
     let mut try_from_repr_match_arms;
 
     match data {
         Data::Enum(data_enum) => {
             try_from_repr_match_arms = TokenStream2::new();
-            try_from_enum_match_arms = TokenStream2::new();
+            from_enum_match_arms = TokenStream2::new();
 
             for variant in data_enum.variants.iter() {
                 let variant_name = &variant.ident;
@@ -59,9 +59,9 @@ pub fn derive_enum2repr(input: TokenStream) -> TokenStream {
                         x if x == #name::#variant_name as #repr => Ok(#name::#variant_name),
                 });
 
-                try_from_enum_match_arms.extend(quote_spanned! {
+                from_enum_match_arms.extend(quote_spanned! {
                     variant.span() =>
-                        #name::#variant_name => Ok(#name::#variant_name as _),
+                        #name::#variant_name => #name::#variant_name as #repr,
                 });
             }
         }
@@ -80,13 +80,10 @@ pub fn derive_enum2repr(input: TokenStream) -> TokenStream {
             }
         }
 
-        impl TryFrom<#name> for #repr {
-            type Error = &'static str;
-
-            fn try_from(value: #name) -> Result<Self, Self::Error> {
+        impl From<#name> for #repr {
+            fn from(value: #name) -> #repr {
                 match value {
-                    #try_from_enum_match_arms
-                    _ => Err("Failed to convert numeric value to enum!"),
+                    #from_enum_match_arms
                 }
             }
         }

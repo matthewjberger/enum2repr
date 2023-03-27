@@ -12,7 +12,7 @@ Numeric types supported by `#[repr(T)]` are supported by enum2repr.
 Add this to your `Cargo.toml`:
 
 ```toml
-enum2repr = "0.1.12"
+enum2repr = "0.1.13"
 ```
 
 Example:
@@ -37,8 +37,8 @@ fn convert_variants() {
 
 #[test]
 fn convert_variants_back() {
-    assert_eq!(u16::try_from(Color::Red), Ok(0x04));
-    assert_eq!(u16::try_from(Color::Green), Ok(0x15));
-    assert_eq!(u16::try_from(Color::Blue), Ok(0x34));
+    assert_eq!(u16::from(Color::Red), 0x04);
+    assert_eq!(u16::from(Color::Green), 0x15);
+    assert_eq!(u16::from(Color::Blue), 0x34);
 }
 ```

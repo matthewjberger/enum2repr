@@ -17,7 +17,7 @@ fn convert_variants() {
 
 #[test]
 fn convert_variants_back() {
-    assert_eq!(u16::try_from(Color::Red), Ok(0x04));
-    assert_eq!(u16::try_from(Color::Green), Ok(0x15));
-    assert_eq!(u16::try_from(Color::Blue), Ok(0x34));
+    assert_eq!(u16::from(Color::Red), 0x04);
+    assert_eq!(u16::from(Color::Green), 0x15);
+    assert_eq!(u16::from(Color::Blue), 0x34);
 }
