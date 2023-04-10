@@ -1,6 +1,6 @@
 [package]
 name = "enum2repr"
-version = "0.1.13"
+version = "0.1.14"
 authors = ["Matthew Berger <matthewjordanberger@gmail.com>"]
 description = """
 EnumRepr is a rust derive macro that creates conversion methods to map between a value and an enum. 

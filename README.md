@@ -12,7 +12,7 @@ Numeric types supported by `#[repr(T)]` are supported by enum2repr.
 Add this to your `Cargo.toml`:
 
 ```toml
-enum2repr = "0.1.13"
+enum2repr = "0.1.14"
 ```
 
 Example:
